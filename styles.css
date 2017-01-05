@@ -1,0 +1,145 @@
+/* --- page--- */
+.dark {
+  background-color: #242627;
+  color: #b5b5b5;
+}
+.dark a {
+  color: #ffffff;
+}
+.dark .bordered {
+  border: 1px solid #0d0e10;
+}
+.dark .selected {
+  background-color: #0d0e10;
+  color: #ffffff;
+}
+.dark .btn-primary {
+  background-color: #0074c8;
+  border: 1px solid #00538f;
+  color: #ffffff;
+}
+.light {
+  color: #747474;
+}
+.light a {
+  color: #249eeb;
+}
+.light .bordered {
+  border: 1px solid #d4d4d4;
+}
+.light .selected {
+  background-color: #249eeb;
+  color: #ffffff;
+}
+.light .btn {
+  background-color: #f7f7f7;
+  border: 1px solid #dbdbdb;
+  color: #747474;
+}
+.light .btn-primary {
+  background-color: #2ecc71;
+  border: 1px solid #239e57;
+  color: #ffffff;
+}
+.light .page-wrap {
+  background-color: #f7f7f7;
+}
+.light .container {
+  background-color: #ffffff;
+}
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light strong,
+.light b {
+  font-weight: 700;
+  color: #4d4d4d;
+}
+.light .page-title,
+.light .bread-crumb {
+  border-color: #d4d4d4;
+  background-color: #ffffff;
+}
+body {
+  color: #747474;
+}
+body a {
+  color: #249eeb;
+}
+body .bordered {
+  border: 1px solid #d4d4d4;
+}
+body .selected {
+  background-color: #249eeb;
+  color: #ffffff;
+}
+body .btn {
+  background-color: #f7f7f7;
+  border: 1px solid #dbdbdb;
+  color: #747474;
+}
+body .btn-primary {
+  background-color: #2ecc71;
+  border: 1px solid #239e57;
+  color: #ffffff;
+}
+body .page-wrap {
+  background-color: #f7f7f7;
+}
+body .container {
+  background-color: #ffffff;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body strong,
+body b {
+  font-weight: 700;
+  color: #4d4d4d;
+}
+body .page-title,
+body .bread-crumb {
+  border-color: #d4d4d4;
+  background-color: #ffffff;
+}
+header,
+menu,
+footer {
+  background-color: #242627;
+  color: #b5b5b5;
+}
+header a,
+menu a,
+footer a {
+  color: #ffffff;
+}
+header .bordered,
+menu .bordered,
+footer .bordered {
+  border: 1px solid #0d0e10;
+}
+header .selected,
+menu .selected,
+footer .selected {
+  background-color: #0d0e10;
+  color: #ffffff;
+}
+header .btn-primary,
+menu .btn-primary,
+footer .btn-primary {
+  background-color: #0074c8;
+  border: 1px solid #00538f;
+  color: #ffffff;
+}
+.form-control {
+  border: 1px solid #d4d4d4;
+  box-shadow: none;
+}
+.form-control:focus {
+  border: 1px solid #249eeb;
+  box-shadow: none;
+}
