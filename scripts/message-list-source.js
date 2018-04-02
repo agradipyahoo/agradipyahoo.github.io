@@ -1,4 +1,5 @@
 (function(scope) {
+	
 	function timeAgo(datetime,opts){
 		var msMinute = 60 * 1000,
 		msHour = msMinute * 60,
@@ -60,7 +61,7 @@
 			count = Math.max(10, count);
 			return new Promise((resolve, reject) => {
 				const xhr = new XMLHttpRequest();
-				const url = `http://message-list.appspot.com/messages?pageToken=${this.pageToken}&limit=${count}`
+				const url = `//message-list.appspot.com/messages?pageToken=${this.pageToken}&limit=${count}`
 				xhr.open("GET", url);
 				xhr.onload = () => resolve(JSON.parse(xhr.responseText));
 				xhr.onerror = () => reject(xhr.statusText);
@@ -90,7 +91,7 @@
 			return div;
 		},
 		getItem:function(mesg) {
-			const url = 'http://message-list.appspot.com/'
+			const url = '//message-list.appspot.com/'
 			return new Promise(function(resolve) {
 				var item = {
 					id: mesg.id,
