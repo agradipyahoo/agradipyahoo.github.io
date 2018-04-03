@@ -93,11 +93,18 @@
       // this.observeMesssageItem();
       // Listen for the swipe out event.
       this.scroller_.addEventListener('swipeout', this.onSwipeOut_.bind(this));
+      this.scroller_.addEventListener('customscroll', this.onSwipeupDown_.bind(this));
     }
     
     scope.InfiniteScroller.prototype = {
-     /**
-      *Swipeout handler
+      /**
+       * Handling custom scroll Event on swipe up
+       */
+      onSwipeupDown_:function(event){
+        this.scroller_.scrollTop = event.detail.message;
+      },
+      /**
+        *Swipeout handler
       */
       onSwipeOut_:function(event){
         
@@ -374,12 +381,12 @@
           }.bind(this), ANIMATION_DURATION_MS)
         }
     
-        // for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
-        //       /** Attach swipe Event Handaler if not not attached*/
-        //     if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
-        //         this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
-        //     }
-        // }
+        for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
+              /** Attach swipe Event Handaler if not not attached*/
+            if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
+                this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
+            }
+        }
             
         this.maybeRequestContent();
     

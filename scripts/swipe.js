@@ -145,7 +145,7 @@ window.requestAnimFrame = (function(){
       function updateSwipeRestPosition() {
         var differenceInX = initialTouchPos.x - lastTouchPos.x;
         currentXPosition = currentXPosition - differenceInX;
-
+        var differenceInY = initialTouchPos.x - lastTouchPos.x;
         // Go to the default state and change
         var newState = STATE_DEFAULT;
 
@@ -170,7 +170,7 @@ window.requestAnimFrame = (function(){
 
         changeState(newState);
 
-        // swipeFrontElement.style.transition = 'all 150ms ease-out';
+        swipeFrontElement.style.transition = 'all 150ms ease-out';
       }
 
       function changeState(newState) {
@@ -229,14 +229,31 @@ window.requestAnimFrame = (function(){
         }
 
         var differenceInX = initialTouchPos.x - lastTouchPos.x;
-
-        var newXTransform = (currentXPosition - differenceInX)+'px';
-        var transformStyle = 'translateX('+newXTransform+')';
-        transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
-        swipeFrontElement.style.webkitTransform = transformStyle;
-        swipeFrontElement.style.MozTransform = transformStyle;
-        swipeFrontElement.style.msTransform = transformStyle;
-        swipeFrontElement.style.transform = transformStyle;
+        var differenceInY = initialTouchPos.y - lastTouchPos.y;
+        
+        
+        if(Math.abs(differenceInY) >5){
+            // console.log('move up and down',differenceInX,'--',differenceInY);
+            var myEvent = new CustomEvent("customscroll", {
+                detail: {
+                    message: differenceInY,
+                    time: new Date(),
+                },
+                bubbles: true,
+                cancelable: false
+            });
+            swipeFrontElement.dispatchEvent(myEvent);
+        }
+        else {
+            var newXTransform = (currentXPosition - differenceInX)+'px';
+            var transformStyle = 'translateX('+newXTransform+')';
+            transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
+            swipeFrontElement.style.webkitTransform = transformStyle;
+            swipeFrontElement.style.MozTransform = transformStyle;
+            swipeFrontElement.style.msTransform = transformStyle;
+            swipeFrontElement.style.transform = transformStyle;
+        }
+        
 
         rafPending = false;
       }
