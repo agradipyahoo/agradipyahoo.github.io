@@ -374,12 +374,12 @@
           }.bind(this), ANIMATION_DURATION_MS)
         }
     
-        for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
-              /** Attach swipe Event Handaler if not not attached*/
-            if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
-                this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
-            }
-        }
+        // for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
+        //       /** Attach swipe Event Handaler if not not attached*/
+        //     if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
+        //         this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
+        //     }
+        // }
             
         this.maybeRequestContent();
     
