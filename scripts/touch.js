@@ -2,8 +2,21 @@
   
     "use strict";
     
+    
     w.Touch = function(id) {
+
       var t = {
+        updateXTransformProp:function(element,newValue){
+            var st = window.getComputedStyle(element, null);
+            var tr = st.getPropertyValue("-webkit-transform") ||
+            st.getPropertyValue("-moz-transform") ||
+            st.getPropertyValue("-ms-transform") ||
+            st.getPropertyValue("-o-transform") ||
+            st.getPropertyValue("transform") ||"FAIL";
+            var matrix = new WebKitCSSMatrix(tr);
+            newValue = 'translateY('+matrix.m42+'px)  ' + newValue;
+            return newValue;
+        },
         t: ['up', 'right', 'down', 'left'],
         tt: 300, tp: 150, dtp: 222, td: Math.round(30 / window.devicePixelRatio), lt: -1, 
         ltt: null, s : null, fn: [], e: null, o: null,
@@ -43,11 +56,27 @@
         },
         swipe: function() {
           var f = 'swipe' + this.t[this.direction()];
-          var e = new CustomEvent(f);
-          this.o.dispatchEvent(e);        
+          var e = new CustomEvent(f,{bubbles: true, cancelable: false, detail: (this.p2.x - this.p1.x)});
+          var swipeFrontElement = t.o;
+          this.moveRight(swipeFrontElement,(this.p2.x - this.p1.x));
+          var _this = this;
+          swipeFrontElement.addEventListener('transitionend',function(){
+            _this.o.dispatchEvent(e);        
+          });
+          
           if ('function' === typeof(this.fn[f])) {
             this.fn[f](this.o);
           }        
+        },
+        moveRight:function(swipeFrontElement,x){
+            var transformStyle = 'translateX('+x+'px)';
+            transformStyle = this.updateXTransformProp(swipeFrontElement,transformStyle);
+            swipeFrontElement.style.msTransform = transformStyle;
+            swipeFrontElement.style.MozTransform = transformStyle;
+            swipeFrontElement.style.webkitTransform = transformStyle;
+            swipeFrontElement.style.transform = transformStyle;
+            swipeFrontElement.style.opacity= 0.3;
+            
         },
         pinch: function() {
           var e, n = 'pinch',dt = {scale : this.e.scale, style: this.s},
