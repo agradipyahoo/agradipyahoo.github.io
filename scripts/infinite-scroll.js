@@ -11,6 +11,8 @@
       newValue = 'translateX('+matrix.m41+'px)  ' + newValue;
       return newValue;
     }
+
+    
     // Number of items to instantiate beyond current view in the scroll direction.
     var RUNWAY_ITEMS = 5;
     
@@ -90,35 +92,20 @@
       this.scrollRunway_.style.transition = 'transform 0.2s';
       this.scroller_.appendChild(this.scrollRunway_);
       this.onResize_();
-      // this.observeMesssageItem();
-      // Listen for the swipe out event.
-      // var parentTouchArea = document.getElementById('parent-toucharea')
-      // var touchArea = document.querySelector('.message-block');
-      // var myRegion = new ZingTouch.Region(this.scroller_);
-
-      // myRegion.bind(touchArea, 'swipe', function(e){
-      //   console.log(e.detail);
-      // })
-    //   this.scroller_.addEventListener('swiperight',function(e){
-    //     console.log(e);
-    // });
-        this.scroller_.addEventListener('swiperight', this.onSwipeOut_.bind(this));
+      this.scroller_.addEventListener('swipeout', this.onSwipeOut_.bind(this));
       // this.scroller_.addEventListener('customscroll', this.onSwipeupDown_.bind(this));
     }
     
     scope.InfiniteScroller.prototype = {
-      /**
-       * Handling custom scroll Event on swipe up
-       */
-      onSwipeupDown_:function(event){
-        this.scroller_.scrollTop = event.detail.message;
-      },
+  
       /**
         *Swipeout handler
       */
       onSwipeOut_:function(event){
-        
+
         var element = event.target;
+        // this.moveRight(element,event);
+        
         var dataId = element.dataset.id;
         var items = this.items_.map(function(item){
             return item.top;
@@ -397,7 +384,7 @@
               /** Attach swipe Event Handaler if not not attached*/
             if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
               
-                this.items_[i].swipeElement = new Touch(this.items_[i].node);              
+                this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
             }
         }
             

@@ -170,7 +170,7 @@ window.requestAnimFrame = (function(){
 
         changeState(newState);
 
-        swipeFrontElement.style.transition = 'all 150ms ease-out';
+        // swipeFrontElement.style.transition = 'all 150ms ease-out';
       }
 
       function changeState(newState) {
