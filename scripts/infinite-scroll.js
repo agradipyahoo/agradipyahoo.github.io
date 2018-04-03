@@ -92,8 +92,18 @@
       this.onResize_();
       // this.observeMesssageItem();
       // Listen for the swipe out event.
-      this.scroller_.addEventListener('swipeout', this.onSwipeOut_.bind(this));
-      this.scroller_.addEventListener('customscroll', this.onSwipeupDown_.bind(this));
+      // var parentTouchArea = document.getElementById('parent-toucharea')
+      // var touchArea = document.querySelector('.message-block');
+      // var myRegion = new ZingTouch.Region(this.scroller_);
+
+      // myRegion.bind(touchArea, 'swipe', function(e){
+      //   console.log(e.detail);
+      // })
+    //   this.scroller_.addEventListener('swiperight',function(e){
+    //     console.log(e);
+    // });
+        this.scroller_.addEventListener('swiperight', this.onSwipeOut_.bind(this));
+      // this.scroller_.addEventListener('customscroll', this.onSwipeupDown_.bind(this));
     }
     
     scope.InfiniteScroller.prototype = {
@@ -115,8 +125,10 @@
         });
         var index =0;
         var item = this.items_.find(function(obj,i){
-            index =i;
-            return obj.data.id == dataId;
+            if(obj.data){
+              index =i;
+              return obj.data.id == dataId;
+            }
         });
         this.scroller_.removeChild(element);
         // this.anchorItem = {index: index+1, offset: this.items_[index].top};
@@ -384,7 +396,8 @@
         for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
               /** Attach swipe Event Handaler if not not attached*/
             if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
-                this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);              
+              
+                this.items_[i].swipeElement = new Touch(this.items_[i].node);              
             }
         }
             

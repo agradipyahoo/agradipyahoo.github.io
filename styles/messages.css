@@ -34,10 +34,6 @@ html, body {
   padding: 10px 0;
   width: 100%;
   contain: layout;
-  -ms-touch-action: none;
-        /* // [START touch-action-example] */
-        /* Pass all touches to javascript */
-        touch-action: none;
         /* // [END touch-action-example] */
   will-change: transform;
 }
