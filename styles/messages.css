@@ -26,10 +26,13 @@ html, body {
   position: absolute;
   box-sizing: border-box;
   contain: layout;
+  touch-action:unset;
   will-change: transform;
-  z-index:1000;
+  /* z-index:1000; */
 }
-
+.message-block{
+  /* overflow: hidden; */
+}
 .message-item {
   display: flex;
   padding: 10px 0;
@@ -37,10 +40,10 @@ html, body {
   contain: layout;
         /* // [END touch-action-example] */
   will-change: transform;
-  -ms-touch-action: none;
+  /* -ms-touch-action: none; */
   /* // [START touch-action-example] */
   /* Pass all touches to javascript */
-  touch-action: none;
+  /* touch-action: none; */
   /* // [END touch-action-example] */
 
 }

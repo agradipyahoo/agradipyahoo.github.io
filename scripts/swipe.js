@@ -64,6 +64,7 @@ window.requestAnimFrame = (function(){
       var itemWidth = swipeFrontElement.clientWidth;
       var slopValue = itemWidth * (1/4);
 
+    
       // On resize, change the slop value
       this.resize = function() {
         itemWidth = swipeFrontElement.clientWidth;
@@ -74,13 +75,15 @@ window.requestAnimFrame = (function(){
       // Handle the start of gestures
       this.handleGestureStart = function(evt) {
         evt.preventDefault();
-
         if(evt.touches && evt.touches.length > 1) {
           return;
         }
-
+        
         // Add the move and end listeners
         if (window.PointerEvent) {
+        if(!swipeFrontElement.style.touchAction){
+            swipeFrontElement.style.touchAction = "none";
+        }
           evt.target.setPointerCapture(evt.pointerId);
         } else {
           // Add Mouse Listeners
@@ -103,9 +106,9 @@ window.requestAnimFrame = (function(){
         if(!initialTouchPos) {
           return;
         }
-
+        
+        
         lastTouchPos = getGesturePointFromEvent(evt);
-
         if(rafPending) {
           return;
         }
@@ -170,7 +173,7 @@ window.requestAnimFrame = (function(){
 
         changeState(newState);
 
-        // swipeFrontElement.style.transition = 'all 150ms ease-out';
+        swipeFrontElement.style.transition = 'all 150ms ease-out';
       }
 
       function changeState(newState) {
