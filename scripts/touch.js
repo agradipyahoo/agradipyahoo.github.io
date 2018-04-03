@@ -160,27 +160,27 @@
           }
         }, false);
   
-        // t.o.addEventListener('gesturestart', function(e){
-        // //   e.preventDefault();
-        //   t.e = e;
-        //   var i,j,s = [], style = w.getComputedStyle(t.o, null);
-        //   for(i = 0, j = style.length; i < j; i++){
-        //      s[style[i]] = style.getPropertyValue(style[i]);
-        //   }
-        //   t.s = s;
-        // }, false);
+        t.o.addEventListener('gesturestart', function(e){
+        //   e.preventDefault();
+          t.e = e;
+          var i,j,s = [], style = w.getComputedStyle(t.o, null);
+          for(i = 0, j = style.length; i < j; i++){
+             s[style[i]] = style.getPropertyValue(style[i]);
+          }
+          t.s = s;
+        }, false);
   
-        // t.o.addEventListener('gesturechange', function(e){
-        // //   e.preventDefault();
-        //   t.e = e;
-        //   t.pinch();
-        // }, false);
+        t.o.addEventListener('gesturechange', function(e){
+        //   e.preventDefault();
+          t.e = e;
+          t.pinch();
+        }, false);
   
-        // t.o.addEventListener('gestureend', function(e){        
-        // //   e.preventDefault();
-        //   t.p1.t = e.timeStamp - (t.tt + 1);
-        //   t.p2.t = e.timeStamp;       
-        // }, false);
+        t.o.addEventListener('gestureend', function(e){        
+        //   e.preventDefault();
+          t.p1.t = e.timeStamp - (t.tt + 1);
+          t.p2.t = e.timeStamp;       
+        }, false);
       }
       return t;
     };

@@ -1,5 +1,4 @@
 (function(scope) {
-	
 	function timeAgo(datetime,opts){
 		var msMinute = 60 * 1000,
 		msHour = msMinute * 60,

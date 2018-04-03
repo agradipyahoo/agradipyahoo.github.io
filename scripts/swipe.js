@@ -81,9 +81,9 @@ window.requestAnimFrame = (function(){
         
         // Add the move and end listeners
         if (window.PointerEvent) {
-        if(!swipeFrontElement.style.touchAction){
-            swipeFrontElement.style.touchAction = "none";
-        }
+        // if(!swipeFrontElement.style.touchAction){
+        //     swipeFrontElement.style.touchAction = "none";
+        // }
           evt.target.setPointerCapture(evt.pointerId);
         } else {
           // Add Mouse Listeners

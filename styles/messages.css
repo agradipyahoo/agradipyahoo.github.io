@@ -31,7 +31,7 @@ html, body {
   /* z-index:1000; */
 }
 .message-block{
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .message-item {
   display: flex;
@@ -40,10 +40,10 @@ html, body {
   contain: layout;
         /* // [END touch-action-example] */
   will-change: transform;
-  /* -ms-touch-action: none; */
+  -ms-touch-action: pan-x , pan-y;
   /* // [START touch-action-example] */
   /* Pass all touches to javascript */
-  /* touch-action: none; */
+  touch-action: pan-x , pan-y;
   /* // [END touch-action-example] */
 
 }
