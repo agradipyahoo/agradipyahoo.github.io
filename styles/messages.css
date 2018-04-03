@@ -27,6 +27,7 @@ html, body {
   box-sizing: border-box;
   contain: layout;
   will-change: transform;
+  z-index:1000;
 }
 
 .message-item {
@@ -36,6 +37,12 @@ html, body {
   contain: layout;
         /* // [END touch-action-example] */
   will-change: transform;
+  -ms-touch-action: none;
+  /* // [START touch-action-example] */
+  /* Pass all touches to javascript */
+  touch-action: none;
+  /* // [END touch-action-example] */
+
 }
 
 .avatar {
