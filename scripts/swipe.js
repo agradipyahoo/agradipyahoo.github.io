@@ -188,14 +188,14 @@ window.requestAnimFrame = (function(){
         }
 
         transformStyle = 'translateX('+currentXPosition+'px)';
-        transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
-        swipeFrontElement.style.msTransform = transformStyle;
-        swipeFrontElement.style.MozTransform = transformStyle;
-        swipeFrontElement.style.webkitTransform = transformStyle;
-        swipeFrontElement.style.transform = transformStyle;
-        swipeFrontElement.style.opacity= 0.3;
-        currentState = newState;
-        if(STATE_RIGHT_SIDE){
+        if(STATE_RIGHT_SIDE && currentXPosition>0){
+            transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
+            swipeFrontElement.style.msTransform = transformStyle;
+            swipeFrontElement.style.MozTransform = transformStyle;
+            swipeFrontElement.style.webkitTransform = transformStyle;
+            swipeFrontElement.style.transform = transformStyle;
+            swipeFrontElement.style.opacity= 0.3;
+            currentState = newState;
             /**
              * Event custom event and dispatch
              */
@@ -263,32 +263,5 @@ window.requestAnimFrame = (function(){
       /* // [END addlisteners] */
     }
 
-    
-
-    function removeTouchEvents(){
-        if (window.PointerEvent) {
-        // Add Pointer Event Listener
-            swipeFrontElement.removeEventListener('pointerdown', this.handleGestureStart, true);
-            swipeFrontElement.removeEventListener('pointermove', this.handleGestureMove, true);
-            swipeFrontElement.removeEventListener('pointerup', this.handleGestureEnd, true);
-            swipeFrontElement.removeEventListener('pointercancel', this.handleGestureEnd, true);
-        } else {
-            // Add Touch Listener
-            swipeFrontElement.removeEventListener('touchstart', this.handleGestureStart, true);
-            swipeFrontElement.removeEventListener('touchmove', this.handleGestureMove, true);
-            swipeFrontElement.removeEventListener('touchend', this.handleGestureEnd, true);
-            swipeFrontElement.removeEventListener('touchcancel', this.handleGestureEnd, true);
-
-            // Add Mouse Listener
-            swipeFrontElement.removeEventListener('mousedown', this.handleGestureStart, true);
-        }
-    
-    }
-
-
-    SwipeRevealItem.prototype = {
-        constructor:SwipeRevealItem,
-        destory:removeTouchEvents
-    }
     window.SwipeRevealItem = SwipeRevealItem;
 })(self);
