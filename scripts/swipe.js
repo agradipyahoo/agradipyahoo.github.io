@@ -15,11 +15,11 @@ window.requestAnimFrame = (function(){
     if(window.PointerEvent || window.navigator.msPointerEnabled) {
       window.PointerEventsSupport = true;
     }
-       
+
 
     /*Updating new position*/
     function updateTransformProp(element,newValue){
-        
+
         var st = window.getComputedStyle(element, null);
         var tr = st.getPropertyValue("-webkit-transform") ||
         st.getPropertyValue("-moz-transform") ||
@@ -32,8 +32,8 @@ window.requestAnimFrame = (function(){
     }
 
 
-    
-    
+
+
 
 
     // Simple way to check if some form of pointerevents is enabled or not
@@ -58,13 +58,13 @@ window.requestAnimFrame = (function(){
       var currentXPosition = 0;
       var currentState = STATE_DEFAULT;
       var handleSize = 10;
-      
+
       // Perform client width here as this can be expensive and doens't
       // change until window.onresize
       var itemWidth = swipeFrontElement.clientWidth;
       var slopValue = itemWidth * (1/4);
 
-    
+
       // On resize, change the slop value
       this.resize = function() {
         itemWidth = swipeFrontElement.clientWidth;
@@ -78,12 +78,10 @@ window.requestAnimFrame = (function(){
         if(evt.touches && evt.touches.length > 1) {
           return;
         }
-        
+
         // Add the move and end listeners
         if (window.PointerEvent) {
-        // if(!swipeFrontElement.style.touchAction){
-        //     swipeFrontElement.style.touchAction = "none";
-        // }
+
           evt.target.setPointerCapture(evt.pointerId);
         } else {
           // Add Mouse Listeners
@@ -106,8 +104,8 @@ window.requestAnimFrame = (function(){
         if(!initialTouchPos) {
           return;
         }
-        
-        
+
+
         lastTouchPos = getGesturePointFromEvent(evt);
         if(rafPending) {
           return;
@@ -232,32 +230,13 @@ window.requestAnimFrame = (function(){
         }
 
         var differenceInX = initialTouchPos.x - lastTouchPos.x;
-        var differenceInY = initialTouchPos.y - lastTouchPos.y;
-        
-        
-        if(Math.abs(differenceInY) >5){
-            // console.log('move up and down',differenceInX,'--',differenceInY);
-            var myEvent = new CustomEvent("customscroll", {
-                detail: {
-                    message: differenceInY,
-                    time: new Date(),
-                },
-                bubbles: true,
-                cancelable: false
-            });
-            swipeFrontElement.dispatchEvent(myEvent);
-        }
-        else {
-            var newXTransform = (currentXPosition - differenceInX)+'px';
-            var transformStyle = 'translateX('+newXTransform+')';
-            transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
-            swipeFrontElement.style.webkitTransform = transformStyle;
-            swipeFrontElement.style.MozTransform = transformStyle;
-            swipeFrontElement.style.msTransform = transformStyle;
-            swipeFrontElement.style.transform = transformStyle;
-        }
-        
-
+        var newXTransform = (currentXPosition - differenceInX)+'px';
+        var transformStyle = 'translateX('+newXTransform+')';
+        transformStyle = updateTransformProp(swipeFrontElement,transformStyle);
+        swipeFrontElement.style.webkitTransform = transformStyle;
+        swipeFrontElement.style.MozTransform = transformStyle;
+        swipeFrontElement.style.msTransform = transformStyle;
+        swipeFrontElement.style.transform = transformStyle;
         rafPending = false;
       }
       /* // [END on-anim-frame] */
