@@ -12,22 +12,22 @@
       return newValue;
     }
 
-    
+
     // Number of items to instantiate beyond current view in the scroll direction.
     var RUNWAY_ITEMS = 5;
-    
+
     // Number of items to instantiate beyond current view in the opposite direction.
     var RUNWAY_ITEMS_OPPOSITE = 5;
-    
+
     // The number of pixels of additional length to allow scrolling to.
     var SCROLL_RUNWAY = 2000;
-    
+
     // The animation interval (in ms) for fading in content from tombstones.
     var ANIMATION_DURATION_MS = 200;
-    
+
     scope.InfiniteScrollerSource = function() {
     }
-    
+
     scope.InfiniteScrollerSource.prototype = {
       /**
        * Fetch more items from the data source. This should try to fetch at least
@@ -38,14 +38,14 @@
        *     with an array of items.
        */
       fetch: function(count) {},
-    
+
       /**
        * Create a tombstone element. All tombstone elements should be identical
        * @return {Element} A tombstone element to be displayed when item data is not
        *     yet available for the scrolled position.
        */
       createTombstone: function() {},
-    
+
       /**
        * Render an item, re-using the provided item div if passed in.
        * @param {Object} item The item description from the array returned by fetch.
@@ -55,8 +55,8 @@
        */
       render: function(item, div) {},
     };
-    
-    
+
+
     /**
      * Construct an infinite scroller.
      * @param {Element} scroller The scrollable element to use as the infinite
@@ -92,24 +92,11 @@
       this.scrollRunway_.style.transition = 'transform 0.2s';
       this.scroller_.appendChild(this.scrollRunway_);
       this.onResize_();
-      // this.observeMesssageItem();
-      // Listen for the swipe out event.
-      // var parentTouchArea = document.getElementById('parent-toucharea')
-      // var touchArea = document.querySelector('.message-block');
-      // var myRegion = new ZingTouch.Region(this.scroller_);
-
-      // myRegion.bind(touchArea, 'swipe', function(e){
-      //   console.log(e.detail);
-      // })
-    //   this.scroller_.addEventListener('swiperight',function(e){
-    //     console.log(e);
-    // });
-        this.scroller_.addEventListener('swiperight', this.onSwipeOut_.bind(this));
-      // this.scroller_.addEventListener('customscroll', this.onSwipeupDown_.bind(this));
+      this.scroller_.addEventListener('swipeout', this.onSwipeOut_.bind(this));
     }
-    
+
     scope.InfiniteScroller.prototype = {
-  
+
       /**
         *Swipeout handler
       */
@@ -117,7 +104,7 @@
 
         var element = event.target;
         // this.moveRight(element,event);
-        
+
         var dataId = element.dataset.id;
         var items = this.items_.map(function(item){
             return item.top;
@@ -137,7 +124,7 @@
           this.items_[i].node.offsetTop;
           this.items_[i].node.style.transition = 'transform ' + ANIMATION_DURATION_MS + 'ms';
         }
-        // var 
+        // var
         this.items_.splice(index,1);
         this.addItem_();
         this.loadedItems_ = this.loadedItems_-1;
@@ -148,7 +135,7 @@
        * layout sizes of items within the scroller.
        */
       onResize_: function() {
-      
+
         var tombstone = this.source_.createTombstone();
         tombstone.style.position = 'absolute';
         this.scroller_.appendChild(tombstone);
@@ -156,7 +143,7 @@
         this.tombstoneSize_ = tombstone.offsetHeight;
         this.tombstoneWidth_ = tombstone.offsetWidth;
         this.scroller_.removeChild(tombstone);
-    
+
         // Reset the cached size of items in the scroller as they may no longer be
         // correct after the item content undergoes layout.
         for (var i = 0; i < this.items_.length; i++) {
@@ -164,7 +151,7 @@
         }
         this.onScroll_();
       },
-    
+
       /**
        * Called when the scroller scrolls. This determines the newly anchored item
        * and offset and then updates the visible elements, requesting more items
@@ -186,7 +173,7 @@
         else
           this.fill(this.anchorItem.index - RUNWAY_ITEMS_OPPOSITE, lastScreenItem.index + RUNWAY_ITEMS);
       },
-    
+
       /**
        * Calculates the item that should be anchored after scrolling by delta from
        * the initial anchored item.
@@ -223,7 +210,7 @@
           offset: delta,
         };
       },
-    
+
       /**
        * Sets the range of items which should be attached and attaches those items.
        * @param {number} start The first item which should be attached.
@@ -234,7 +221,7 @@
         this.lastAttachedItem_ = end;
         this.attachContent();
       },
-    
+
       /**
        * Creates or returns an existing tombstone ready to be reused.
        * @return {Element} A tombstone element ready to be used.
@@ -261,7 +248,7 @@
           this.items_[i].node.offsetTop;
           anim[0].offsetTop;
           this.items_[i].node.style.transition = 'transform ' + ANIMATION_DURATION_MS + 'ms';
-          
+
         }
       },
       /**
@@ -270,7 +257,7 @@
        */
       attachContent: function() {
         // Collect nodes which will no longer be rendered for reuse.
-      
+
         var i;
         var unusedNodes = [];
         for (i = 0; i < this.items_.length; i++) {
@@ -290,8 +277,8 @@
           this.items_[i].node = null;
         }
 
-        
-    
+
+
         var tombstoneAnimations = {};
         // Create DOM nodes.
         for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
@@ -301,7 +288,7 @@
             // if it's a tombstone but we have data, replace it.
             if (this.items_[i].node.classList.contains('tombstone') &&
                 this.items_[i].data) {
-              
+
               if (ANIMATION_DURATION_MS) {
                 this.items_[i].node.style.zIndex = 1;
                 tombstoneAnimations[i] = [this.items_[i].node, this.items_[i].top - this.anchorScrollTop];
@@ -321,12 +308,12 @@
           this.scroller_.appendChild(node);
           this.items_[i].node = node;
         }
-    
+
         // Remove all unused nodes
         while (unusedNodes.length) {
           this.scroller_.removeChild(unusedNodes.pop());
         }
-    
+
         // Get the height of all nodes which haven't been measured yet.
         for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
           // Only cache the height if we have the real contents, not a placeholder.
@@ -334,9 +321,9 @@
             this.items_[i].height = this.items_[i].node.offsetHeight;
             this.items_[i].width = this.items_[i].node.offsetWidth;
           }
-          
+
         }
-    
+
         // Fix scroll position in case we have realized the heights of elements
         // that we didn't used to know.
         this.anchorScrollTop = 0;
@@ -344,7 +331,7 @@
           this.anchorScrollTop += this.items_[i].height || this.tombstoneSize_;
         }
         this.anchorScrollTop += this.anchorItem.offset;
-    
+
         // Position all nodes.
         var curPos = this.anchorScrollTop - this.anchorItem.offset;
         i = this.anchorItem.index;
@@ -374,13 +361,13 @@
           this.items_[i].top = curPos;
           curPos += this.items_[i].height || this.tombstoneSize_;
         }
-    
+
         this.scrollRunwayEnd_ = Math.max(this.scrollRunwayEnd_, curPos + SCROLL_RUNWAY)
         this.scrollRunway_.style.transform = 'translate(0, ' + this.scrollRunwayEnd_ + 'px)';
         this.scroller_.scrollTop = this.anchorScrollTop;
-    
+
         if (ANIMATION_DURATION_MS) {
-        
+
           setTimeout(function() {
             for (var i in tombstoneAnimations) {
               var anim = tombstoneAnimations[i];
@@ -388,20 +375,20 @@
               this.tombstones_.push(anim[0]);
               // Tombstone can be recycled now.
             }
-          
+
           }.bind(this), ANIMATION_DURATION_MS)
         }
-    
+
         for (i = this.firstAttachedItem_; i < this.lastAttachedItem_; i++) {
               /** Attach swipe Event Handaler if not not attached*/
             if(this.items_[i].data && this.items_[i].node && this.items_[i].height && !this.items_[i].swipeElement){
-              
-                this.items_[i].swipeElement = new Touch(this.items_[i].node);              
+
+                this.items_[i].swipeElement = new SwipeRevealItem(this.items_[i].node);
             }
         }
-            
+
         this.maybeRequestContent();
-    
+
       },
       /**
        * Requests additional content if we don't have enough currently.
@@ -417,7 +404,7 @@
         this.requestInProgress_ = true;
         this.source_.fetch(itemsNeeded).then(this.addContent.bind(this));
       },
-    
+
       /**
        * Adds an item to the items list.
        */
@@ -431,7 +418,7 @@
           'swipeElement':null
         })
       },
-    
+
       /**
        * Adds the given array of items to the items list and then calls
        * attachContent to update the displayed content.

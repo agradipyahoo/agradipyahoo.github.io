@@ -26,8 +26,9 @@ html, body {
   position: absolute;
   box-sizing: border-box;
   contain: layout;
-  touch-action:unset;
+  touch-action:pan-y;
   will-change: transform;
+
   /* z-index:1000; */
 }
 .message-block{
@@ -40,7 +41,8 @@ html, body {
   contain: layout;
         /* // [END touch-action-example] */
   will-change: transform;
-  
+  touch-action: none;
+
 
 }
 
@@ -86,7 +88,7 @@ header {
 }
 .topbar{
   color: #fff;
-  font-size:20px; 
+  font-size:20px;
 }
 
 .message-item.tombstone .meta {
@@ -130,7 +132,7 @@ header {
 .head{
   display: flex;
   flex-direction: row;
-}   
+}
 
 
 .posted-date {
